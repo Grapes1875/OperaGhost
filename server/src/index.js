@@ -41,6 +41,11 @@ const api_secret = "v9dpmacpxr55pr32j64c7ne8hnr88nzea4cw9yhfsu2t46ymye5yyf3hka6r
 
 const serverClient = StreamChat.getInstance(api_key, api_secret);
 
+app.get("/", (req, res) => {
+    res.json("Hello");
+})
+
+
 // Endpoint to create a lobby
 app.post("/create-lobby", async (req, res) => {
     try {

@@ -5,7 +5,9 @@
   "license": "ISC",
   "type": "module",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "build": "echo 'Build completed successfully'",
+    "test": "echo 'No tests specified'"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

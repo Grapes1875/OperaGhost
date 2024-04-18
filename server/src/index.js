@@ -26,7 +26,7 @@ app.use(cors({
 }));
 
 
-const MONGODB_URI = "mongodb+srv://alexreyes1875:Master2324@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGODB_URI = "mongodb+srv://Guest:Guest12345@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI, {

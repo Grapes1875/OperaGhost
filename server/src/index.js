@@ -16,9 +16,14 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(cors({
-    origin: ["http://localhost:3000", "http://192.168.1.174:3000"]
+    origin: [
+        "http://localhost:3000",
+        "http://192.168.1.174:3000",
+        "https://grapes1875.github.io/OperaGhost/",
+        "https://opera-ghost-frontend-knrzro7zh-grapes1875s-projects.vercel.app"
+    ]
 }));
-app.use(express.json());
+
 
 // MongoDB connection URI
 const MONGODB_URI = "mongodb+srv://alexreyes1875:Master2324@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";

@@ -20,7 +20,7 @@ app.use(cors({
         "http://localhost:3000",
         "http://192.168.1.174:3000",
         "https://grapes1875.github.io/OperaGhost/",
-        "https://opera-ghost-frontend-knrzro7zh-grapes1875s-projects.vercel.app"
+        "https://opera-ghost-frontend-knrzro7zh-grapes1875s-projects.vercel.app","https://opera-ghost-frontend.vercel.app"
     ]
 }));
 

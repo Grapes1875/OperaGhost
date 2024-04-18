@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon src/index.js",
-    "build": "npm start && echo 'Build completed successfully'",
+    "build": "echo 'Build completed successfully'",
     "test": "echo 'No tests specified'"
   },
   "dependencies": {

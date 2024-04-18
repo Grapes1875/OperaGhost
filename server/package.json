@@ -1,12 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "ISC",
   "type": "module",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "build": "npm i"
+    "start": "nodemon src/index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

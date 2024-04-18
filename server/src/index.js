@@ -1,10 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-import { v4 as uuidv4 } from 'uuid'; // Import uuidv4 for generating unique IDs
-import bcrypt from 'bcrypt'; // Import bcrypt for password hashing
+import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcrypt';
 import { StreamChat } from 'stream-chat';
+import mongoose from 'mongoose'; // Import Mongoose
 import { fileURLToPath } from 'url';
 import path from 'path';
+
+// Import schemas
+import { User, Lobby } from './schemas.js'; 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,31 +16,41 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(cors({
-    origin: ["http://localhost:3000",]
+    origin: ["http://localhost:3000", "http://192.168.1.174:3000"]
 }));
 app.use(express.json());
+
+// MongoDB connection URI
+const MONGODB_URI = "mongodb+srv://alexreyes1875:Master2324@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+// Connect to MongoDB
+mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('Error connecting to MongoDB:', err));
 
 const api_key = "tnr699vt7egz";
 const api_secret = "v9dpmacpxr55pr32j64c7ne8hnr88nzea4cw9yhfsu2t46ymye5yyf3hka6rvhza";
 
 const serverClient = StreamChat.getInstance(api_key, api_secret);
 
-
 // Endpoint to create a lobby
 app.post("/create-lobby", async (req, res) => {
     try {
         const { userId, lobbyName } = req.body;
 
-        // Create a new channel
-        const channel = serverClient.channel('messaging', uuidv4(), {
+        // Create a new lobby document
+        const lobby = new Lobby({
             name: lobbyName,
-            created_by_id: userId,
+            createdBy: userId
         });
 
-        // Add creator as a member of the channel
-        await channel.create();
+        // Save the lobby document to the database
+        await lobby.save();
 
-        res.json({ channel });
+        res.json({ lobby });
     } catch (error) {
         console.error("Error creating lobby:", error);
         res.status(500).json({ message: "Failed to create lobby" });
@@ -46,28 +60,22 @@ app.post("/create-lobby", async (req, res) => {
 // Endpoint for user sign-up
 app.post("/signup", async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const userId = uuidv4(); // Generate a unique user ID
-        const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+        const { username, email, password } = req.body;
 
-        // Set user's role to 'user' during user creation
-        const { users } = await serverClient.upsertUsers([
-            {
-                id: userId,
-                name: username,
-                role: 'user',
-                hashedPassword: hashedPassword
-            }
-        ]);
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        if (users.length === 0) {
-            res.status(500).json({ message: "Failed to create user" });
-            return;
-        }
+        // Create a new user document
+        const user = new User({
+            username,
+            email,
+            password: hashedPassword
+        });
 
-        const token = serverClient.createToken(userId);
+        // Save the user document to the database
+        await user.save();
 
-        res.json({ token, username, userId, hashedPassword });
+        res.json({ message: "User created successfully" });
     } catch (error) {
         console.error("Error signing up:", error);
         res.status(500).json({ message: "Failed to sign up" });
@@ -78,19 +86,19 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
     try {
         const { username, password } = req.body;
-        const { users } = await serverClient.queryUsers({ name: username });
-        if (users.length === 0)
-            return res.json({ message: "User not found" });
 
-        const token = serverClient.createToken(users[0].id);
-        const passwordMatch = await bcrypt.compare(password, users[0].hashedPassword);
+        // Find the user by username
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Compare passwords
+        const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (passwordMatch) {
-            res.json({
-                token,
-                username,
-                userId: users[0].id
-            });
+            res.json({ message: "Login successful" });
         } else {
             res.status(401).json({ message: "Incorrect password" });
         }

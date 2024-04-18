@@ -25,8 +25,8 @@ app.use(cors({
     ]
 }));
 
-// MongoDB connection URI
-const MONGODB_URI = "mongodb+srv://alexreyes1875@gmail.com:Master2324@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+const MONGODB_URI = "mongodb+srv://alexreyes1875:Master2324@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI, {
@@ -71,7 +71,7 @@ app.post("/signup", async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
-        // Hash the password using bcryptjs
+    
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create a new user document
@@ -120,29 +120,3 @@ app.post("/login", async (req, res) => {
 app.listen(3001, () => {
     console.log('Server is running on port 3001');
 });
-
-/* MongoDB Connection Setup */
-import { MongoClient, ServerApiVersion } from 'mongodb';
-
-const uri = "mongodb+srv://alexreyes1875@gmail.com:Master2324@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-async function run() {
-  try {
-    // Connect the client to the server    (optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);

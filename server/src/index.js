@@ -1,11 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcryptjs'; // Use bcryptjs instead of bcrypt
-import { StreamChat } from 'stream-chat';
-import mongoose from 'mongoose'; // Import Mongoose
+import bcrypt from 'bcryptjs'; 
+import mongoose from 'mongoose'; 
 import { fileURLToPath } from 'url';
 import path from 'path';
+import { StreamChat } from 'stream-chat'; // Import StreamChat
 
 // Import schemas
 import { User, Lobby } from './schemas.js'; 
@@ -21,10 +20,10 @@ app.use(cors({
         "http://192.168.1.174:3000",
         "https://grapes1875.github.io/OperaGhost/",
         "https://opera-ghost-frontend-knrzro7zh-grapes1875s-projects.vercel.app",
-        "https://opera-ghost-frontend.vercel.app"
+        "https://opera-ghost-frontend.vercel.app",
+        "https://opera-ghost-frontend-184x90nj3-grapes1875s-projects.vercel.app" 
     ]
 }));
-
 
 const MONGODB_URI = "mongodb+srv://Guest:Guest12345@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -39,7 +38,7 @@ mongoose.connect(MONGODB_URI, {
 const api_key = "tnr699vt7egz";
 const api_secret = "v9dpmacpxr55pr32j64c7ne8hnr88nzea4cw9yhfsu2t46ymye5yyf3hka6rvhza";
 
-const serverClient = StreamChat.getInstance(api_key, api_secret);
+const serverClient = StreamChat.getInstance(api_key, api_secret); // Create StreamChat instance
 
 app.get("/", (req, res) => {
     res.json("Hello");

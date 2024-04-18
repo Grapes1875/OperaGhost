@@ -19,13 +19,5 @@
       "src": "/create-lobby",
       "dest": "src/index.js"
     }
-  ],
-  "install": {
-    "include": [
-      "bcrypt"
-    ],
-    "additional": [
-      "npm rebuild bcrypt --build-from-source"
-    ]
-  }
+  ]
 }

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs'; // Use bcryptjs instead of bcrypt
 import { StreamChat } from 'stream-chat';
 import mongoose from 'mongoose'; // Import Mongoose
 import { fileURLToPath } from 'url';
@@ -20,10 +20,10 @@ app.use(cors({
         "http://localhost:3000",
         "http://192.168.1.174:3000",
         "https://grapes1875.github.io/OperaGhost/",
-        "https://opera-ghost-frontend-knrzro7zh-grapes1875s-projects.vercel.app","https://opera-ghost-frontend.vercel.app"
+        "https://opera-ghost-frontend-knrzro7zh-grapes1875s-projects.vercel.app",
+        "https://opera-ghost-frontend.vercel.app"
     ]
 }));
-
 
 // MongoDB connection URI
 const MONGODB_URI = "mongodb+srv://alexreyes1875:Master2324@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -43,8 +43,7 @@ const serverClient = StreamChat.getInstance(api_key, api_secret);
 
 app.get("/", (req, res) => {
     res.json("Hello");
-})
-
+});
 
 // Endpoint to create a lobby
 app.post("/create-lobby", async (req, res) => {
@@ -72,7 +71,7 @@ app.post("/signup", async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
-        // Hash the password
+        // Hash the password using bcryptjs
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create a new user document

@@ -7,7 +7,7 @@ function SignUp({ setIsAuth }) {
   const [user, setUser] = useState({ username: '', password: '' });
 
   const signUp = () => {
-    Axios.post("http://localhost:3001/signup", user)
+    Axios.post("https://opera-ghost-backend.vercel.app/signup", user)
       .then(res => {
         const { token, username, userId, hashedPassword } = res.data;
         cookies.set("token", token);

@@ -10,11 +10,12 @@ function Login({ setIsAuth }) {
   const cookies = new Cookies();
 
   const login = () => {
-    Axios.post(["http://localhost:3001/login","https://operaghost.onrender.com/login"], {
-      username,
-      password,
-    })
-      .then((res) => {
+    Promise.all([
+      Axios.post("http://localhost:3001/login", { username, password }),
+      Axios.post("https://operaghost.onrender.com/login", { username, password })
+    ])
+      .then(([localRes, renderRes]) => {
+        const res = localRes || renderRes; // Use the response from any of the endpoints
         const { token, username, userId } = res.data;
         cookies.set("token", token);
         cookies.set("username", username);

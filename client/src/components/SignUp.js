@@ -5,24 +5,31 @@ import Cookies from 'universal-cookie';
 function SignUp({ setIsAuth }) {
   const cookies = new Cookies();
   const [user, setUser] = useState({ username: '', password: '' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const signUp = () => {
-    Axios.post(["http://localhost:3001/signup","https://operaghost.onrender.com"], user)
-      .then(res => {
-        const { token, username, userId, hashedPassword } = res.data;
+    setLoading(true);
+    Promise.all([
+      Axios.post("http://localhost:3001/signup", user),
+      Axios.post("https://operaghost.onrender.com", user)
+    ])
+      .then(([localRes, renderRes]) => {
+        const { token, username, userId } = localRes.data;
         cookies.set("token", token);
         cookies.set("username", username);
         cookies.set("userId", userId);
-        cookies.set("hashedPassword", hashedPassword);
         setIsAuth(true);
       })
       .catch(error => {
+        setError("Signup failed. Please try again later.");
         console.error("Signup error:", error);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
-      <div className="signUp">
+    <div className="signUp">
       <label>Sign Up</label>
       <input 
         placeholder="Username" 
@@ -33,8 +40,9 @@ function SignUp({ setIsAuth }) {
         type="password" 
         onChange={(event) => setUser({ ...user, password: event.target.value })} 
       />
-      <button onClick={signUp}>Sign Up</button>
-      </div>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button onClick={signUp} disabled={loading}>Sign Up</button>
+    </div>
   );
 }
 

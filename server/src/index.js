@@ -14,7 +14,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: ['https://operaghost.onrender.com', 'http://localhost:3000'], // Add your frontend URLs here
+  origin: ['https://operaghost-1.onrender.com', 'http://localhost:3000'], // Add your frontend URLs here
 };
 
 app.use(cors(corsOptions));

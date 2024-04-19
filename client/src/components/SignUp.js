@@ -7,7 +7,7 @@ function SignUp({ setIsAuth }) {
   const [user, setUser] = useState({ username: '', password: '' });
 
   const signUp = () => {
-    Axios.post("https://operaghost.onrender.com:10000/signup", user)
+    Axios.post(["http://localhost:3001/signup","https://operaghost.onrender.com"], user)
       .then(res => {
         const { token, username, userId, hashedPassword } = res.data;
         cookies.set("token", token);

@@ -10,7 +10,7 @@ function Login({ setIsAuth }) {
   const cookies = new Cookies();
 
   const login = () => {
-    Axios.post("https://operaghost.onrender.com:10000/login", {
+    Axios.post(["http://localhost:3001/login","https://operaghost.onrender.com/login"], {
       username,
       password,
     })

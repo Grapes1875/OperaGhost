@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { v4 as uuidv4 } from 'uuid'; // Import uuidv4 for generating unique IDs
-import bcrypt from 'bcrypt'; // Import bcrypt for password hashing
+import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcryptjs';
 import { StreamChat } from 'stream-chat';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -11,16 +11,15 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(cors({
-    origin: ["http://localhost:3000",]
-}));
+// Allow requests from all origins
+app.use(cors());
+
 app.use(express.json());
 
 const api_key = "tnr699vt7egz";
 const api_secret = "v9dpmacpxr55pr32j64c7ne8hnr88nzea4cw9yhfsu2t46ymye5yyf3hka6rvhza";
 
 const serverClient = StreamChat.getInstance(api_key, api_secret);
-
 
 // Endpoint to create a lobby
 app.post("/create-lobby", async (req, res) => {
@@ -47,8 +46,8 @@ app.post("/create-lobby", async (req, res) => {
 app.post("/signup", async (req, res) => {
     try {
         const { username, password } = req.body;
-        const userId = uuidv4(); // Generate a unique user ID
-        const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+        const userId = uuidv4(); 
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         // Set user's role to 'user' during user creation
         const { users } = await serverClient.upsertUsers([
@@ -100,6 +99,6 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.listen(3001, () => {
-    console.log('Server is running on port 3001');
+app.listen(5000, () => {
+    console.log('Server started on PORT 5000');
 });

@@ -25,7 +25,8 @@ function SignUp({ setIsAuth }) {
       Axios.post(renderSignUpUrl, user)
     ])
       .then(([localRes, renderRes]) => {
-        const { token, username, userId } = localRes.data;
+        const res = localRes || renderRes;
+        const { token, username, userId } = res.data;
         cookies.set("token", token);
         cookies.set("username", username);
         cookies.set("userId", userId);

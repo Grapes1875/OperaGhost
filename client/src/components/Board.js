@@ -11,7 +11,6 @@ function BingoCard({ setResult }) {
   const { client } = useChatContext();
 
   useEffect(() => {
-    // Function to generate 25 random phrases
     const generateRandomPhrases = () => {
       const availablePhrases = [
         "The Phantom's Mask",
@@ -41,17 +40,12 @@ function BingoCard({ setResult }) {
         "Past the Point of No Return"
       ];
 
-      // Shuffle the phrases array
       const shuffledPhrases = availablePhrases.sort(() => Math.random() - 0.5);
-      // Select the first 25 phrases
       return shuffledPhrases.slice(0, 25);
     };
-
-    // Generate random phrases when the component mounts
     const randomPhrases = generateRandomPhrases();
     setPhrases(randomPhrases);
 
-    // Initialize the Bingo card with empty squares
     const initialCard = Array.from({ length: 25 }, () => false);
     setCard(initialCard);
   }, []);
@@ -68,7 +62,6 @@ function BingoCard({ setResult }) {
   };
 
   const checkWin = () => {
-    // Check if all squares are marked
     if (markedSquares === 25) {
       setResult({ winner: "Bingo ", player: client.userID, state: " Won!" });
     }

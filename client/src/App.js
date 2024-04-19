@@ -43,7 +43,7 @@ function App() {
           <JoinGame />
           <button className="Logout" onClick={logOut}>Logout</button>
         </Chat>) : (
-        <>
+        <>f
         <div className="startMenu"> 
           <SignUp setIsAuth={setIsAuth} />
           <Login setIsAuth={setIsAuth} />

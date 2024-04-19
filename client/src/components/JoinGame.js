@@ -10,9 +10,9 @@ import askofYouAudio from '../music/All I Ask Of You.mp3'
 function JoinGame() {
   const [lobbyName, setLobbyName] = useState('');
   const [channel, setChannel] = useState(null);
-  const [audio, setAudio] = useState(null); // State to store the Audio object
+  const [audio, setAudio] = useState(null);
   const { client } = useChatContext();
-  const [isPlaying, setIsPlaying] = useState(false); // State to track whether audio is playing or paused
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     if (channel) {

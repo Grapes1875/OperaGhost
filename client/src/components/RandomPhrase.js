@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 const RandomPhrase = () => {
-  // Define an array of random phrases
   const phrases = [
-     "The Phantom's Mask",
+    "The Phantom's Mask",
         "Christine's Voice Lesson",
         "The Chandeliers Falls",
         "Masquerade Ball",
@@ -30,10 +29,8 @@ const RandomPhrase = () => {
         "Past the Point of No Return"
   ];
 
-  // State to store the currently displayed phrase
   const [currentPhrase, setCurrentPhrase] = useState("");
 
-  // Function to pick a random phrase from the array
   const pickRandomPhrase = () => {
     const randomIndex = Math.floor(Math.random() * phrases.length);
     setCurrentPhrase(phrases[randomIndex]);

@@ -20,5 +20,8 @@
     "react-player": "^2.15.1",
     "stream-chat": "^8.22.0",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.27"
   }
 }

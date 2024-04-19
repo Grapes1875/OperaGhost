@@ -26,9 +26,9 @@ app.use(express.json());
 
 // Define CORS configuration for specific routes if needed
 const corsOptions = {
-  origin: ['https://operaghost-1.onrender.com', 'http://localhost:3000', 'grapes1875.github.io/OperaGhost', 'http://localhost:3001']
+  origin: ['https://operaghost-1.onrender.com', 'http://localhost:3000', 'grapes1875.github.io/OperaGhost']
 };
-app.use('/create-lobby', cors(corsOptions)); // Example of applying CORS to a specific route
+app.use('/create-lobby', cors(corsOptions)); 
 
 const api_key = "tnr699vt7egz";
 const api_secret = "v9dpmacpxr55pr32j64c7ne8hnr88nzea4cw9yhfsu2t46ymye5yyf3hka6rvhza";

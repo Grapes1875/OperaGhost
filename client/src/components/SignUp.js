@@ -8,11 +8,21 @@ function SignUp({ setIsAuth }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Base URL for your server hosted locally
+  const localServerUrl = "http://localhost:3001"; 
+  // Base URL for your server hosted on Render
+  const renderServerUrl = "https://operaghost.onrender.com"; 
+
   const signUp = () => {
     setLoading(true);
+    // Constructing the signup endpoint URLs
+    const localSignUpUrl = `${localServerUrl}/signup`; 
+    const renderSignUpUrl = `${renderServerUrl}/signup`; 
+    
+    // Making Axios requests to the constructed endpoint URLs
     Promise.all([
-      Axios.post("http://localhost:3001/signup", user),
-      Axios.post("http://localhost:10000/signup", user)
+      Axios.post(localSignUpUrl, user),
+      Axios.post(renderSignUpUrl, user)
     ])
       .then(([localRes, renderRes]) => {
         const { token, username, userId } = localRes.data;

@@ -12,7 +12,7 @@ function Login({ setIsAuth }) {
   const login = () => {
     Promise.all([
       Axios.post("http://localhost:3001/login", { username, password }),
-      Axios.post("https://operaghost.onrender.com/login", { username, password })
+      Axios.post("http://localhost:10000/login", { username, password })
     ])
       .then(([localRes, renderRes]) => {
         const res = localRes || renderRes; // Use the response from any of the endpoints

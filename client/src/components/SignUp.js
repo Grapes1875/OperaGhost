@@ -12,7 +12,7 @@ function SignUp({ setIsAuth }) {
     setLoading(true);
     Promise.all([
       Axios.post("http://localhost:3001/signup", user),
-      Axios.post("https://operaghost.onrender.com", user)
+      Axios.post("http://localhost:10000/signup", user)
     ])
       .then(([localRes, renderRes]) => {
         const { token, username, userId } = localRes.data;

@@ -50,27 +50,6 @@ app.get("/", (req, res) => {
   res.send(`Server is running on port ${port}`);
 });
 
-// Endpoint to create a lobby
-app.post("/create-lobby", async (req, res) => {
-  try {
-    const { userId, lobbyName } = req.body;
-
-    // Create a new channel
-    const channel = serverClient.channel('messaging', uuidv4(), {
-      name: lobbyName,
-      created_by_id: userId,
-    });
-
-    // Add creator as a member of the channel
-    await channel.create();
-
-    res.json({ channel });
-  } catch (error) {
-    console.error("Error creating lobby:", error);
-    res.status(500).json({ message: "Failed to create lobby" });
-  }
-});
-
 // Endpoint for user sign-up
 app.post("/signup", async (req, res) => {
   try {
@@ -125,6 +104,27 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ message: "Failed to log in" });
+  }
+});
+
+// Endpoint to create a lobby
+app.post("/create-lobby", async (req, res) => {
+  try {
+    const { userId, lobbyName } = req.body;
+
+    // Create a new channel
+    const channel = serverClient.channel('messaging', uuidv4(), {
+      name: lobbyName,
+      created_by_id: userId,
+    });
+
+    // Add creator as a member of the channel
+    await channel.create();
+
+    res.json({ channel });
+  } catch (error) {
+    console.error("Error creating lobby:", error);
+    res.status(500).json({ message: "Failed to create lobby" });
   }
 });
 

@@ -14,7 +14,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: ['https://operaghost-1.onrender.com', 'http://localhost:3000'], // Add your frontend URLs here
+  origin: ['https://operaghost.onrender.com', 'http://localhost:3000'], // Add your frontend URLs here
 };
 
 app.use(cors(corsOptions));
@@ -35,6 +35,11 @@ mongoose.connect(MONGODB_URI, {
 })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
+
+// Middleware to respond with server running message
+app.get("/", (req, res) => {
+    res.send(`Server is running on port ${port}`);
+});
 
 // Endpoint to create a lobby
 app.post("/create-lobby", async (req, res) => {

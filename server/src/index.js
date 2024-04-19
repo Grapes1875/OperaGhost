@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcryptjs';
-import mongoose from 'mongoose'; // Import mongoose for MongoDB connection
+import mongoose from 'mongoose';
 import { StreamChat } from 'stream-chat';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -12,9 +12,12 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Allow requests from all origins
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+  origin: ['https://operaghost.onrender.com', 'http://localhost:3000'], // Add your frontend URLs here
+};
 
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const api_key = "tnr699vt7egz";

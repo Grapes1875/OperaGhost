@@ -12,16 +12,19 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+const allowedOrigins = [
+    "http://localhost:3000",
+    "http://192.168.1.174:3000",
+    "https://grapes1875.github.io/OperaGhost/",
+    "https://opera-ghost-frontend-knrzro7zh-grapes1875s-projects.vercel.app",
+    "https://opera-ghost-frontend.vercel.app",
+    "https://opera-ghost-frontend-184x90nj3-grapes1875s-projects.vercel.app" 
+];
+
 app.use(cors({
-    origin: [
-        "http://localhost:3000",
-        "http://192.168.1.174:3000",
-        "https://grapes1875.github.io/OperaGhost/",
-        "https://opera-ghost-frontend-knrzro7zh-grapes1875s-projects.vercel.app",
-        "https://opera-ghost-frontend.vercel.app",
-        "https://opera-ghost-frontend-184x90nj3-grapes1875s-projects.vercel.app" 
-    ]
+    origin: allowedOrigins
 }));
+
 app.use(express.json());
 
 const api_key = "tnr699vt7egz";

@@ -9,12 +9,12 @@ function Login({ setIsAuth }) {
 
   const cookies = new Cookies();
   
-  const localServerUrl = "http://localhost:3001"; 
+  const vercelServerUrl = "operaghost-backend.vercel.app"; 
 
   const login = () => {
-    const localLoginUrl = `${localServerUrl}/login`; 
+    const vercelLoginUrl = `${vercelServerUrl}/login`; 
     
-    Axios.post(localLoginUrl, { username, password })
+    Axios.post(vercelLoginUrl, { username, password })
       .then((response) => {
         const { token, username, userId } = response.data;
         cookies.set("token", token);

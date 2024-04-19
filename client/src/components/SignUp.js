@@ -8,13 +8,13 @@ function SignUp({ setIsAuth }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const localServerUrl = "http://localhost:3001"; 
+  const vercelServerUrl = "operaghost-backend.vercel.app"; 
 
   const signUp = () => {
     setLoading(true);
-    const localSignUpUrl = `${localServerUrl}/signup`; 
+    const vercelSignUpUrl = `${localServerUrl}/signup`; 
     
-    Axios.post(localSignUpUrl, user)
+    Axios.post(vercelSignUpUrl, user)
       .then((response) => {
         const { token, username, userId } = response.data;
         cookies.set("token", token);

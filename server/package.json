@@ -1,11 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "index.js",
   "license": "ISC",
   "type": "module",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "nodemon index.js",
     "build": "echo 'Build completed successfully'",
     "test": "echo 'No tests specified'"
   },

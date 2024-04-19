@@ -8,7 +8,8 @@ function SignUp({ setIsAuth }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const vercelServerUrl = "operaghost-backend.vercel.app"; 
+  const vercelServerUrl = "https://operaghost-backend.vercel.app"; 
+ 
 
   const signUp = () => {
     setLoading(true);

@@ -9,7 +9,8 @@ function Login({ setIsAuth }) {
 
   const cookies = new Cookies();
   
-  const vercelServerUrl = "operaghost-backend.vercel.app"; 
+  const vercelServerUrl = "https://operaghost-backend.vercel.app"; 
+
 
   const login = () => {
     const vercelLoginUrl = `${vercelServerUrl}/login`; 

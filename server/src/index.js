@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import bcrypt from 'bcryptjs'; 
-import { v4 as uuidv4 } from 'uuid'; // Import uuidv4 for generating unique IDs
+import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcrypt';
 import mongoose from 'mongoose'; // Import mongoose for MongoDB connection
 import { StreamChat } from 'stream-chat';
 import { fileURLToPath } from 'url';
@@ -12,25 +12,15 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-const allowedOrigins = [
-    "http://localhost:3000",
-    "http://192.168.1.174:3000",
-    "https://grapes1875.github.io/OperaGhost/",
-    "https://opera-ghost-frontend-knrzro7zh-grapes1875s-projects.vercel.app",
-    "https://opera-ghost-frontend.vercel.app",
-    "https://opera-ghost-frontend-184x90nj3-grapes1875s-projects.vercel.app" 
-];
-
-app.use(cors({
-    origin: allowedOrigins
-}));
+// Allow requests from all origins
+app.use(cors());
 
 app.use(express.json());
 
 const api_key = "tnr699vt7egz";
 const api_secret = "v9dpmacpxr55pr32j64c7ne8hnr88nzea4cw9yhfsu2t46ymye5yyf3hka6rvhza";
 
-const serverClient = StreamChat.getInstance(api_key, api_secret); // Create StreamChat instance
+const serverClient = StreamChat.getInstance(api_key, api_secret);
 
 // MongoDB URI
 const MONGODB_URI = "mongodb+srv://Guest:Guest12345@cluster0.uv5hqma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -121,6 +111,7 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.listen(3001, () => {
-    console.log('Server is running on port 3001');
+const port = process.env.PORT || 3001;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });

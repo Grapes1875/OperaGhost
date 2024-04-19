@@ -12,7 +12,7 @@ function SignUp({ setIsAuth }) {
 
   const signUp = () => {
     setLoading(true);
-    const vercelSignUpUrl = `${localServerUrl}/signup`; 
+    const vercelSignUpUrl = `${vercelServerUrl}/signup`; 
     
     Axios.post(vercelSignUpUrl, user)
       .then((response) => {

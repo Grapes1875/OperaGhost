@@ -12,13 +12,22 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// CORS configuration
-const corsOptions = {
-origin: ['https://operaghost.onrender.com', 'http://localhost:3000', 'grapes1875.github.io/OperaGhost']
-};
+// CORS middleware
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from all origins
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allow specified methods
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specified headers
+  next();
+});
 
-app.use(cors(corsOptions));
+// Other middleware
 app.use(express.json());
+
+// Define CORS configuration for specific routes if needed
+const corsOptions = {
+  origin: ['https://operaghost-1.onrender.com', 'http://localhost:3000', 'grapes1875.github.io/OperaGhost', 'http://localhost:3001']
+};
+app.use('/create-lobby', cors(corsOptions)); // Example of applying CORS to a specific route
 
 const api_key = "tnr699vt7egz";
 const api_secret = "v9dpmacpxr55pr32j64c7ne8hnr88nzea4cw9yhfsu2t46ymye5yyf3hka6rvhza";
@@ -30,96 +39,96 @@ const MONGODB_URI = "mongodb+srv://Guest:Guest12345@cluster0.uv5hqma.mongodb.net
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('Error connecting to MongoDB:', err));
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('Error connecting to MongoDB:', err));
 
 // Middleware to respond with server running message
 app.get("/", (req, res) => {
-    res.send(`Server is running on port ${port}`);
+  res.send(`Server is running on port ${port}`);
 });
 
 // Endpoint to create a lobby
 app.post("/create-lobby", async (req, res) => {
-    try {
-        const { userId, lobbyName } = req.body;
+  try {
+    const { userId, lobbyName } = req.body;
 
-        // Create a new channel
-        const channel = serverClient.channel('messaging', uuidv4(), {
-            name: lobbyName,
-            created_by_id: userId,
-        });
+    // Create a new channel
+    const channel = serverClient.channel('messaging', uuidv4(), {
+      name: lobbyName,
+      created_by_id: userId,
+    });
 
-        // Add creator as a member of the channel
-        await channel.create();
+    // Add creator as a member of the channel
+    await channel.create();
 
-        res.json({ channel });
-    } catch (error) {
-        console.error("Error creating lobby:", error);
-        res.status(500).json({ message: "Failed to create lobby" });
-    }
+    res.json({ channel });
+  } catch (error) {
+    console.error("Error creating lobby:", error);
+    res.status(500).json({ message: "Failed to create lobby" });
+  }
 });
 
 // Endpoint for user sign-up
 app.post("/signup", async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const userId = uuidv4(); // Generate a unique user ID
-        const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+  try {
+    const { username, password } = req.body;
+    const userId = uuidv4(); // Generate a unique user ID
+    const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
 
-        // Set user's role to 'user' during user creation
-        const { users } = await serverClient.upsertUsers([
-            {
-                id: userId,
-                name: username,
-                role: 'user',
-                hashedPassword: hashedPassword
-            }
-        ]);
+    // Set user's role to 'user' during user creation
+    const { users } = await serverClient.upsertUsers([
+      {
+        id: userId,
+        name: username,
+        role: 'user',
+        hashedPassword: hashedPassword
+      }
+    ]);
 
-        if (users.length === 0) {
-            res.status(500).json({ message: "Failed to create user" });
-            return;
-        }
-
-        const token = serverClient.createToken(userId);
-
-        res.json({ token, username, userId, hashedPassword });
-    } catch (error) {
-        console.error("Error signing up:", error);
-        res.status(500).json({ message: "Failed to sign up" });
+    if (users.length === 0) {
+      res.status(500).json({ message: "Failed to create user" });
+      return;
     }
+
+    const token = serverClient.createToken(userId);
+
+    res.json({ token, username, userId, hashedPassword });
+  } catch (error) {
+    console.error("Error signing up:", error);
+    res.status(500).json({ message: "Failed to sign up" });
+  }
 });
 
 // Endpoint for user login
 app.post("/login", async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const { users } = await serverClient.queryUsers({ name: username });
-        if (users.length === 0)
-            return res.json({ message: "User not found" });
+  try {
+    const { username, password } = req.body;
+    const { users } = await serverClient.queryUsers({ name: username });
+    if (users.length === 0)
+      return res.json({ message: "User not found" });
 
-        const token = serverClient.createToken(users[0].id);
-        const passwordMatch = await bcrypt.compare(password, users[0].hashedPassword);
+    const token = serverClient.createToken(users[0].id);
+    const passwordMatch = await bcrypt.compare(password, users[0].hashedPassword);
 
-        if (passwordMatch) {
-            res.json({
-                token,
-                username,
-                userId: users[0].id
-            });
-        } else {
-            res.status(401).json({ message: "Incorrect password" });
-        }
-    } catch (error) {
-        console.error("Error logging in:", error);
-        res.status(500).json({ message: "Failed to log in" });
+    if (passwordMatch) {
+      res.json({
+        token,
+        username,
+        userId: users[0].id
+      });
+    } else {
+      res.status(401).json({ message: "Incorrect password" });
     }
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).json({ message: "Failed to log in" });
+  }
 });
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });

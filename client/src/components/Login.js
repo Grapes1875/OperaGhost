@@ -10,7 +10,7 @@ function Login({ setIsAuth }) {
   const cookies = new Cookies();
 
   const login = () => {
-    Axios.post("https://opera-ghost-backend.vercel.app/login", {
+    Axios.post("https://operaghost.onrender.com/login", {
       username,
       password,
     })

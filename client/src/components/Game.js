@@ -8,12 +8,12 @@ import raoulImage from '../images/raoul.png';
 import christineImage from '../images/christine.png';
 
 function Game({ channel, setChannel }) {
-  const [playersJoined, setPlayersJoined] = useState(channel?.state?.watcher_count >= 2);
+  const [playersJoined, setPlayersJoined] = useState(channel?.state?.watcher_count >= 1);
   const [result, setResult] = useState({ winner: "none", state: "none" });
   const [isChatOpen, setIsChatOpen] = useState(true);
 
   const handleUserWatchingStart = (event) => {
-    setPlayersJoined(event.watcher_count >= 2);
+    setPlayersJoined(event.watcher_count >= 1);
   };
 
   useEffect(() => {

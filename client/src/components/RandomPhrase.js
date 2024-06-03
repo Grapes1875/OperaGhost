@@ -124,7 +124,7 @@ const RandomPhrase = () => {
   };
 
   return (
-    <div>
+    <div className="randomPhrase">
       <h2>Random Phrase</h2>
       <button onClick={pickRandomPhrase}>Generate Phrase</button>
       {currentPhrase && <p>{currentPhrase}</p>}

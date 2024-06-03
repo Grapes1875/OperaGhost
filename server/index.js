@@ -99,6 +99,6 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.listen(5000, () => {
-    console.log('Server started on PORT 5000');
+app.listen(5002, () => {
+    console.log('Server started on PORT 5002');
 });

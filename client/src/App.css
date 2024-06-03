@@ -1,126 +1,133 @@
 /* Base styles */
+body,
 .App {
   width: 100vw;
   height: 100vh;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-}
-
-body {
-  padding: 0;
-  margin: 0;
+  background-color: black;
+  color: #fff;
 }
 
 /* Pixel art */
 .pixel-art {
   image-rendering: pixelated;
-  width: 300px;
-  height: 300px;
 }
 
+/* Characters */
 .Phantom,
 .Christine,
 .Raoul {
   width: 400px;
   height: 400px;
   position: absolute;
+  justify-content: space-between;
 }
-  
+
 .Phantom {
-  bottom: -5%;
+  bottom: 2%;
   right: 55%;
 }
 
 .Christine {
-  bottom: 2%;
-  left: -10%;
+  bottom: 5%;
+  left: 40%;
 }
 
 .Raoul {
-  left: 25%;
+  right: 25%;
+  bottom: 2%;
 }
 
-/* Login and sign up */
+/* Forms */
 .login,
-.signUp {
+.signUp,
+.joinGame {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  align-items: center;
+  margin: 30px;
+  width: 100%;
+  max-width: 450px;
 }
 
 .login input,
-.signUp input {
+.signUp input,
+.joinGame input,
+.login button,
+.signUp button,
+.joinGame button {
   margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 300px;
-  height: 30px;
+  width: 100%;
+  max-width: 400px;
+  height: 40px;
 }
 
 .login button,
-.signUp button {
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  width: 320px;
-  height: 30px;
+.signUp button,
+.joinGame button {
+  height: 50px;
   cursor: pointer;
+  background-color: #444;
+  color: #fff;
+
 }
 
 /* Spacing */
 .Space {
-  height: 40px;
+  height: 10px;
 }
 
 /* Labels */
 .login label,
 .signUp label {
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  color: white;
+  color: #fff;
+  font-size: 2em;
 }
 
 /* Bingo card */
 .bingo-card {
+  position: absolute;
+  top: 5%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  width: 550px;
-  height: 550px;
-  margin: 0 auto;
+  gap: 6px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0;
+  padding: 10px;
+  border-radius: 10px;
+  opacity: 0.85;
+  z-index: 4;
 }
 
-/* Logout */
-.Logout {
-  position: absolute;
-  top: 2%;
-  right: 5%;
-  z-index: 999;
-}
-
-/* Row */
-.row {
+.row{
   flex: 33%;
   display: flex;
   flex-direction: row;
 }
 
-/* Square */
 .square {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
   font-size: 16px;
   width: 100%;
-  height: 100%;
+  padding-bottom: 70%;
   border: 2px solid #333;
   background-color: #fff;
   cursor: pointer;
+  color: black;
+  z-index: 5;
 }
 
 .square:active {
@@ -136,306 +143,148 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  z-index: 2;
+}
+.randomPhrase {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 25%;
+  top: 25%;
 }
 
-/* Heading 4 */
+/* Headings */
 h4 {
-  font-family: Arial, Helvetica, sans-serif;
-  color: white;
   font-size: 30px;
 }
 
-
+/* Title and Photo */
 .pTitle {
-  position: absolute;
-  top: 2%;
-  left: 28%;
-  width: 100%;
-  height: 500px;
-  z-index: 2;
-  color: #fff;
-}
-.photo{
-  position: absolute;
-  width: 25%;
-  left: 10%;
-}
-.title {
-  position: absolute;
-  top: 45%;
-  left: 11%;
-}
-
-/* Join game */
-
-.joinGame {
-  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  background-color: black;
-  height: 100%;
-  width: 100%;
-}
-
-
-.joinGame input {
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 220px;
-  height: 30px;
-  z-index: 20;
-}
-
-.joinGame button {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 220px;
-  height: 51px;
-  cursor: pointer;
-  z-index: 21;
-}
-
-/* Media query for smaller screens */
-@media only screen and (max-width: 767px) {
-
-  .login input,
-  .signUp input,
-  .login button,
-  .signUp button,
-  .joinGame input,
-  .joinGame button {
-    width: 90%;
-    max-width: 250px;
-  }
-
-  .login,
-  .signUp {
-    margin: 40px;
-  }
-
-  .pixel-art {
-    bottom: 0px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    image-rendering: pixelated;
-  }
-
-.pTitle {
-  position: absolute;
-  top: 2%;
-  left: 28%;
-  width: 100%;
-  height: 500px;
-  z-index: 2;
-  color: #fff;
-}
-
-.photo{
-  position: relative;
-  height: 50%;
-  width: 50%;
-}
-
-.joinGame {
-  position: relative;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: black;
-  height: 100%;
-  width: 100%;
 }
-
-
-  .Phantom,
-  .Christine,
-  .Raoul {
-    width: 400px;
-    height: 400px;
-    position: absolute;
-  }
-
-  .Phantom {
-    bottom: -5%;
-    right: 55%;
-  }
-
-  .Christine {
-    bottom: 2%;
-    left: -10%;
-  }
-
-  .Raoul {
-    left: 25%;
-  }
-
-  .joinGame input,
-  .joinGame button {
-    border-radius: 20px;
-    justify-content: center;
-    display: flex;
-    font-size: medium;
-    z-index: 50;
-  }
-
-  .randomPhrase {
-    position: absolute;
-    top: 10px;
-  }
-
-  .bingo-card {
-    display: grid;
-    grid-template-columns: repeat(5, 0.5fr);
-    gap: 1px;
-    width: 400px;
-    height: 450px;
-    font-size: small;
-    opacity: 0.75;
-  }
-
-  .square {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    width: 100%;
-    height: 100%;
-    border: 2px solid #333;
-    background-color: #fff;
-    cursor: pointer;
-  }
-
-  h4 {
-    font-size: 20px;
-  }
-}
-
-/* Media query for even smaller screens, such as smaller phones */
-@media only screen and (max-width: 475px) {
-
-  .login input,
-  .signUp input,
-  .login button,
-  .signUp button,
-  .joinGame input,
-  .joinGame button {
-    width: 90%;
-    max-width: 250px;
-  }
-
-  .login,
-  .signUp {
-    margin: 40px;
-  }
-
-  .pTitle {
-    position: absolute;
-    top: 1px;
-    left: 5px;
-    width: 100%;
-    height: auto;
-  }
 
 .photo {
-    position: relative;
-    left: 20%;
-    width: 75%;
-    height: 50%;
-  }
+  height: 300px;
+  width: 300px;
+  overflow: visible;
+  z-index: 0;
+}
 
-.title{
-    top: 75%;
-    left: 18%;
-    position: absolute;
-    color: #fff;
-  }
+.title {
+  font-size: 2em;
+}
 
-  .joinGame {
-    position: relative;
-    display: flex;
+/* Logout */
+.Logout {
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  border-radius: 10px;
+  z-index: 999;
+  font-size: larger;
+  cursor: pointer;
+}
+
+
+/* Media Queries for iPhone 6 through iPhone 14 Pro Max */
+@media (max-width: 720px) {
+
+  body,
+  .App {
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: black;
-    height: 100%;
-    width: 100%;
+    padding: 5px;
   }
 
-  .pixel-art {
-    bottom: 0px;
+  .randomPhrase {
     position: relative;
-    display: flex;
-    align-items: center;
-    image-rendering: pixelated;
+    font-size: 10px;
+    bottom: 5%;
   }
+
+.Phantom, 
+.Christine,
+.Raoul{
+  position: absolute;
+  z-index: 0;
+}
+
+.Phantom{
+  bottom: 10%;
+  left: 5%;
+}
+.Christine{
+  bottom: 12%;
+  right: 15%;
+}
+.Raoul{
+  bottom: 8%;
+  right: 15%;
+}
 
   .Phantom,
   .Christine,
   .Raoul {
-    width: 300px;
-    height: 300px;
-    position: absolute;
+  width: 45vw;
+  height: 25vh;
+}
+
+  .login,
+  .signUp,
+  .joinGame {
+    width: 95vw;
+    margin: 10px 0;
   }
 
-  .Phantom {
-    bottom: 45px;
-    right: 110px;
-  }
-
-  .Christine {
-    bottom: 48px;
-    left: 30px;
-  }
-
-  .Raoul {
-    bottom: 15px;
-    left: 75px;
-  }
-
+  .login input,
+  .signUp input,
   .joinGame input,
+  .login button,
+  .signUp button,
   .joinGame button {
-    border-radius: 20px;
-    justify-content: center;
-    display: flex;
-    font-size: medium;
-    z-index: 50;
-  }
-
-  .randomPhrase {
-    position: absolute;
-    top: 10px;
+    max-width: 60%;
   }
 
   .bingo-card {
-    display: grid;
-    grid-template-columns: repeat(5, 0.5fr);
-    gap: 1px;
-    width: 350px;
-    height: 450px;
-    font-size: small;
-    opacity: 0.75;
+  width: 95vw;
+  height: 75vw;
+  top: 7%;
+  left: 1%;
+  padding: 4px;
+  position: absolute;
   }
 
   .square {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    width: 100%;
-    height: 100%;
-    border: 2px solid #333;
-    background-color: #fff;
-    cursor: pointer;
+font-size: 2.8vw;
+}
+
+  .randomPhrase {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  right: auto;
+  top: 2%;
+  left: 2%;
+  width: 5vw;
+  height: 5vh;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+  .photo {
+    height: 200px;
+    width: 200px;
   }
 
-  h4 {
-    font-size: 20px;
+  .title {
+    font-size: 1.5em;
+  }
+
+  .Logout {
+    top: 5%;
+    right: 5%;
+    font-size: medium;
   }
 }

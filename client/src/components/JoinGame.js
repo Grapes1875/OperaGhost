@@ -95,7 +95,7 @@ function JoinGame() {
       setAudio(newAudio);
       setIsPlaying(true);
     } else {
-      audio.pause(); // Pause the currently playing audio
+      audio.pause();
       setIsPlaying(false);
     }
   };
@@ -110,8 +110,8 @@ function JoinGame() {
         <div className="joinGame">
           <div className="pTitle">
             <img src={phantomTitleImage} alt="Phantom Title" className="photo"/>
-            <h1 className="title">Phantom of the Opera</h1>
           </div>
+          <h1 className="title">Phantom of the Opera</h1>
           <h4>Create/Join Game</h4>
           <input
             placeholder="Enter lobby name..."
